@@ -224,6 +224,10 @@ const (
 
 	// ConvergerHostnameNamespace is a unique key used in the converger.
 	ConvergerHostnameNamespace = "etcd-hostname"
+
+	// MaxLeaseTTL is the maximum lease TTL value. The global in the etcd
+	// package is larger than the max 32-bit int.
+	MaxLeaseTTL = 2e9
 )
 
 // EmbdEtcd provides the embedded server and client etcd functionality.
@@ -377,8 +381,8 @@ func (obj *EmbdEtcd) Validate() error {
 	if s <= 0 {
 		return fmt.Errorf("the SessionTTL const of %s (%d sec) must be greater than zero", SessionTTL.String(), s)
 	}
-	if s > etcd.MaxLeaseTTL {
-		return fmt.Errorf("the SessionTTL const of %s (%d sec) must be less than %d sec", SessionTTL.String(), s, etcd.MaxLeaseTTL)
+	if s > MaxLeaseTTL {
+		return fmt.Errorf("the SessionTTL const of %s (%d sec) must be less than %d sec", SessionTTL.String(), s, MaxLeaseTTL)
 	}
 
 	if obj.Hostname == "" {

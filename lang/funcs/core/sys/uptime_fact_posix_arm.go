@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-//go:build !darwin && !arm
+//go:build !darwin && arm
 
 package coresys
 
@@ -23,7 +23,7 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-func uptime() (int64, error) {
+func uptime() (int32, error) {
 	var sysinfo unix.Sysinfo_t
 	if err := unix.Sysinfo(&sysinfo); err != nil {
 		return 0, err

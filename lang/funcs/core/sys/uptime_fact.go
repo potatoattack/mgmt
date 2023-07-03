@@ -85,7 +85,7 @@ func (obj *UptimeFact) Stream() error {
 		}
 
 		select {
-		case obj.init.Output <- &types.IntValue{V: uptime}:
+		case obj.init.Output <- &types.IntValue{V: int64(uptime)}:
 			// send
 		case <-obj.closeChan:
 			return nil
